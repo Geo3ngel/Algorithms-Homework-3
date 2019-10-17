@@ -76,7 +76,7 @@ The solution:
 
 2) sort the list of coin values for the current currency.
 
-3) Then we find the largest coin value for the current currency list that is smaller then our 'remaining\_change' value.
+3) Then we take the largest coin value for the current currency list that is smaller then our 'remaining\_change' value.
 
 4) Add that largest coin to the result list, and set our 'remaining\_change' value equal to our 'remaining\_change' minus that largest coin's value.
 
@@ -85,16 +85,30 @@ The solution:
 NOTE: We assume there is a one cent equivalent value such that the base case can always occur.
 
 \begin{algorithm}
-        \caption{Greedy Make Change Pseudo Code}
-        \begin{algorithmic}
-        \Procedure{Greedy\_Make\_Change}{$currency_list$, $remaining_change$} 
+    \caption{Greedy Make Change Pseudo Code}
+    \begin{algorithmic}
+        \Procedure{Greedy\_Make\_Change}{$currency\_list$, $remaining\_change$} 
             \State $result\_list$ = []
-            \State sort(currency_list, LARGE_TO_SMALL) \Comment{sorted order Large to Small.}
-            \State \textbf{return} result\_list
+            \If{$remaining\_change$ $==$ $0$}
+                \State return $result\_list$
+            \EndIf
+            
+        \State sort(currency\_list, LARGE\_TO\_SMALL) \Comment{Sorted order Large to Small by value.}
+        
+        \For{$i$ = 0; i $<$ $currency\_list.length$; $i++$}
+            \If{$currency\_list[i].value()$ $<$ $remaining\_change$}
+                \State $result\_list.append(currency\_list[i])$ \Comment{Add the first value smaller than} $remaining\_change$}
+                \State $remaining\_change$ $-=$ currency\_list[i].value()
+                \State Break
+            \EndIf
+        \EndFor
+        
+        \State $result\_list$.concatenate($Greedy\_Make\_Change(currency\_list$, $remaining\_changes)$)
+        
+        \State \textbf{return} result\_list
         \EndProcedure
     \end{algorithmic}
 \end{algorithm}
-
 
 \nextprob
 For the Greedy make change algorithm described in class on 10/02, describe the
