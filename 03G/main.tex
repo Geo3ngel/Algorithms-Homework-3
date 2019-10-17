@@ -4,8 +4,8 @@
 
 %% UPDATE these variables:
 \renewcommand{\hwnum}{3}
-\author{TODO-Your Group Number and Names Here}
-\collab{TODO-list your collaborators here}
+\author{Gavin Austin, George Engel, Troy Oster}
+\collab{None}
 \date{due: 18 October 2019}
 
 \begin{document}
@@ -14,18 +14,27 @@
 If 23 people are in a room, then the probability that at least two of them have
 the same birthday is at least one half.  This is known as the birthday paradox,
 since the number 23 is probably much lower than you would expect.  How many
-people do we need in order to have 50% probability that there are three people
+people do we need in order to have 50\% probability that there are three people
 with the same birthday?
-As a reminder, when giving an algorithm as an answer, you
-are expected to give:
-\begin{itemize}
-    \item A prose explanation of the problem and algorithm.
-    \item Psuedocode.
-    \item The decrementing function for any loop or recursion, or a runtime
-        justification.
-    \item Justification of why the runtime is linear.
-    \item The loop invariant for any loops, with full justification.
-\end{itemize}
+
+We need 87 people in order to have 50\% probability that there are three people with the same birthday.
+\newline \newline Let $P(A) = $ the probability that at least three people in the room have the same birthday.
+\newline Then, $P(A') = $ the probability that no three people in the room have the same birthday.
+\newline Therefore, $P(A) = 1 - P(A')$.
+\newline \newline $P(A') = (1/365)^{87} \,\cdot\, (365 \cdot 364 \cdot 363 \cdot \, ... \, \cdot 279)$
+\newline $P(A) = 1 - 0.48893488937 = 0.5110651106$
+\newline $P(A) = 51.10651106\%$
+
+
+\nextprob
+Suppose we have a graph $G=(V,E)$ and three colors, and randomly assign a color
+each node (where each color is equally likely).
+\begin{enumerate}
+    \item What is the probability that every edge has two different colors on
+        assigned to its two nodes?
+    \item What is the expected number of edges that have different colors
+        assigned to its two nodes?
+\end{enumerate}
 
 \nextprob
 Suppose we have a graph $G=(V,E)$ and three colors, and randomly assign a color
