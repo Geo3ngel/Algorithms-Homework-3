@@ -49,16 +49,62 @@ each node (where each color is equally likely).
 \nextprob
 CLRS, Question 15-6.
 
-As a reminder, when giving an algorithm as an answer, you
-are expected to give:
-\begin{itemize}
-    \item A prose explanation of the problem and algorithm.
-    \item Psuedocode.
-    \item The decrementing function for any loop or recursion, or a runtime
-        justification.
-    \item Justification of runtime.
-    \item The loop invariant for any loops, with full justification.
-\end{itemize}
+\boldsymbol{Explanation of the Problem:}
+
+Question as described in book: Describe an algorithm to make up a guest list that maximizes the sum of the conviviality ratings of the guests. Analyze the running time of your algorithm.
+
+Problem broken down: 
+
+We want to get a subset of employees $E$ that maximizes the sum of conviviality between employees not including the employee's immediate superior.
+
+So if we think of each employee as a node $e$, and denote the employee's value of conviviality as $e[c]$, we would want to find the largest value for $$\sum_{e \in E}^{}(e[c])$$ such that if $e \in E$, then e's parent \notin E.
+
+\boldsymbol{Explanation of Algorithm:}
+
+Given we want to find the optimal solution to a summation, it would make sense to try and beak down the problem of finding the optimal solution into smaller sub problems, using dynamic programming.
+
+1) If e is the root of our sub tree, and is invited, let the maximum possible conviviality sum be denoted as M(e).
+
+2) Else, e is the root of our sub tree, but is not invited, let the maximum possible conviviality sum be denoted as M'(e).
+
+3) Say M(e) = The sum of each generation of employees, disregarding every other child generation, including/starting at the root node.
+
+4) Say M'(e) = The sum of each generation of employees, disregarding every other child generation, not including/starting at the root node.
+
+5) For the solution, we begin with the company president CONTINuE
+
+\boldsymbol{Psuedocode}
+
+\begin{algorithm}
+    \caption{Dynamic Programming Algorithm}
+    \begin{algorithmic}
+        \Procedure{Party\_Planner}{$currency\_list$, $remaining\_change$} 
+            \State temp
+            \EndIf
+        \EndFor
+        
+        \State $result\_list$.concatenate($Greedy\_Make\_Change(currency\_list$, $remaining\_changes)$)
+        
+        \State \textbf{return} result\_list
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+
+\boldsymbol{Decrementing Function:}
+
+TODO: This.
+
+\boldsymbol{Run\ Time\ Justification:}
+
+Our algorithm's run time is $O(n)$. 
+
+TODO: CHANGE THIS!!!
+
+Assuming there are n vertices, given we solve n sub problems each of which are constant time. However, it is worth noting that the it could take linear time to find the next node to solve using the tree.
+
+\boldsymbol{Loop Invariants:}
+
+TODO: This.
 
 \nextprob
 For the Greedy make change algorithm described in class on 10/02, describe the
