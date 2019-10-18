@@ -63,7 +63,7 @@ So if we think of each employee as a node $e$, and denote the employee's value o
 
 Given we want to find the optimal solution to a summation, it would make sense to try and beak down the problem of finding the optimal solution into smaller sub problems, using dynamic programming.
 
-1) If e is the root of our sub tree, and is invited, let the maximum possible conviviality sum be denoted as M(e).
+1) If e is the president (the root of our sub tree), and is invited, let the maximum possible conviviality sum be denoted as M(e).
 
 2) Else, e is the root of our sub tree, but is not invited, let the maximum possible conviviality sum be denoted as M'(e).
 
@@ -71,21 +71,61 @@ Given we want to find the optimal solution to a summation, it would make sense t
 
 4) Say M'(e) = The sum of each generation of employees, disregarding every other child generation, not including/starting at the root node.
 
-5) For the solution, we begin with the company president CONTINuE
+5) For the solution, we begin with the company president, and recursively traverse the company hierarchy  CONTINuE
 
 \boldsymbol{Psuedocode}
 
+Computing M(x) and M'(x) for every employee e using a single recursive traversal of the company tree in O(n) time.
+
 \begin{algorithm}
-    \caption{Dynamic Programming Algorithm}
+    \caption{Calculating Maximum Conviviality}
     \begin{algorithmic}
-        \Procedure{Party\_Planner}{$currency\_list$, $remaining\_change$} 
-            \State temp
+        \Procedure{Party\_Planner}{$e$} 
+            \State M(e) = e[c]
+            \State M'(e) = 0
+            \State child = e.leftmost\_child
+            \While{ child $\neq$ NIL} 
+                \State Party\_Planner(child)
+                \State M(e) = M(e) + M'(e)
+                \State M\_child = M(child)
+                \State M\_not\_child = M'(child)
+                \If{M\_child $>$ M\_not\_child} \Comment{We want to add the larger value}
+                    \State M'(e) = M'(e) + M\_child
+                \Else
+                    \State M'(e) = M'(e) + M\_not\_child
+                \EndIf
+                
+                \State child = child.get\_sibling\_to\_right
+            \EndWhile
+            
+            
+            \If{}
+                \State M'(e) = M'(e) + M\_child
+            \Else
+                \State M'(e) = M'(e) + M\_not\_child
             \EndIf
-        \EndFor
-        
-        \State $result\_list$.concatenate($Greedy\_Make\_Change(currency\_list$, $remaining\_changes)$)
-        
-        \State \textbf{return} result\_list
+        \State return conviviality
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+
+
+\begin{algorithm}
+    \caption{Actually Inviting Employees}
+    \begin{algorithmic}
+        \Procedure{Invite}{$e$} 
+            \State invited = [] \Comment{List of employees invited to party.}
+            \If{M(e) $>$ M'(e)} 
+                    \State invited.append(e)
+                    \For{each grandchild of e}
+                        \State invited.append(Invite(grandchild))
+                    \EndFor
+                \Else
+                    \For{each child of e}
+                        \State invited.append(Invite(child))
+                    \EndFor
+                \EndIf
+                \State return invited
         \EndProcedure
     \end{algorithmic}
 \end{algorithm}
